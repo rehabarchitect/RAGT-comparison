@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAGT Device Comparison v3</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf7f2;
+    --ink: #1c1917;
+    --ink-mid: #44403c;
+    --ink-dim: #78716c;
+    --rule: #e7e5e4;
+    --rule-dark: #c8bfaf;
+    --hiwin: #1d4ed8;
+    --hiwin-light: #eff6ff;
+    --hiwin-mid: #bfdbfe;
+    --rgait: #166534;
+    --rgait-light: #f0fdf4;
+    --rgait-mid: #bbf7d0;
+    --ekso: #9f1239;
+    --ekso-light: #fff1f2;
+    --ekso-mid: #fecdd3;
+    --gold: #92400e;
+    --gold-light: #fef3c7;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: var(–cream);
+font-family: ‘Noto Sans Thai’, sans-serif;
+color: var(–ink);
+width: 980px;
+margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.header {
+padding: 52px 56px 40px;
+border-bottom: 2px solid var(–ink);
+display: grid;
+grid-template-columns: 1fr 280px;
+gap: 32px;
+align-items: end;
+}
+
+.header-overline {
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–ink-dim);
+margin-bottom: 12px;
+}
+
+.header-title {
+font-family: ‘Playfair Display’, serif;
+font-weight: 900;
+font-size: 52px;
+line-height: 1;
+color: var(–ink);
+letter-spacing: -1px;
+}
+
+.header-title span {
+font-weight: 700;
+font-style: italic;
+color: var(–ink-mid);
+font-size: 42px;
+}
+
+.header-sub {
+margin-top: 12px;
+font-size: 13px;
+color: var(–ink-dim);
+line-height: 1.6;
+}
+
+.device-legend {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.legend-item {
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 10px 14px;
+border-radius: 4px;
+border: 1px solid var(–rule);
+}
+.legend-item.h { background: var(–hiwin-light); border-color: var(–hiwin-mid); }
+.legend-item.r { background: var(–rgait-light); border-color: var(–rgait-mid); }
+.legend-item.e { background: var(–ekso-light); border-color: var(–ekso-mid); }
+
+.legend-dot {
+width: 8px; height: 8px;
+border-radius: 50%;
+flex-shrink: 0;
+}
+.h .legend-dot { background: var(–hiwin); }
+.r .legend-dot { background: var(–rgait); }
+.e .legend-dot { background: var(–ekso); }
+
+.legend-name {
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 0.5px;
+}
+.h .legend-name { color: var(–hiwin); }
+.r .legend-name { color: var(–rgait); }
+.e .legend-name { color: var(–ekso); }
+
+.legend-type {
+font-size: 10px;
+color: var(–ink-dim);
+margin-left: auto;
+}
+
+/* ── TABLE ── */
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+/* Section header */
+.sec {
+background: var(–ink);
+color: #fff;
+}
+.sec td {
+padding: 9px 24px;
+font-family: ‘DM Mono’, monospace;
+font-size: 9px;
+letter-spacing: 3px;
+text-transform: uppercase;
+}
+
+/* Column headers */
+thead tr.cols th {
+padding: 14px 20px;
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+border-bottom: 1px solid var(–rule-dark);
+text-align: center;
+}
+thead tr.cols th:first-child {
+text-align: left;
+color: var(–ink-dim);
+background: var(–cream);
+width: 200px;
+}
+thead tr.cols th.h { color: var(–hiwin); background: var(–hiwin-light); border-top: 3px solid var(–hiwin); }
+thead tr.cols th.r { color: var(–rgait); background: var(–rgait-light); border-top: 3px solid var(–rgait); }
+thead tr.cols th.e { color: var(–ekso);  background: var(–ekso-light);  border-top: 3px solid var(–ekso); }
+
+/* Data rows */
+tr.row td {
+padding: 15px 20px;
+border-bottom: 1px solid var(–rule);
+vertical-align: top;
+font-size: 12.5px;
+line-height: 1.55;
+}
+
+tr.row:hover td { filter: brightness(0.97); }
+
+tr.row td:first-child {
+font-size: 11.5px;
+font-weight: 600;
+color: var(–ink-mid);
+border-right: 1px solid var(–rule);
+width: 200px;
+}
+
+tr.row td.h { background: var(–hiwin-light); border-left: 3px solid var(–hiwin); text-align: center; }
+tr.row td.r { background: var(–rgait-light); border-left: 3px solid var(–rgait); text-align: center; }
+tr.row td.e { background: var(–ekso-light);  border-left: 3px solid var(–ekso);  text-align: center; }
+
+.num {
+font-family: ‘Playfair Display’, serif;
+font-weight: 700;
+font-size: 22px;
+display: block;
+line-height: 1.1;
+color: var(–ink);
+}
+.unit {
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+color: var(–ink-dim);
+display: block;
+margin-top: 2px;
+}
+.note {
+font-size: 11px;
+color: var(–ink-dim);
+display: block;
+margin-top: 5px;
+font-style: italic;
+line-height: 1.4;
+}
+
+/* Tags */
+.tag {
+display: inline-block;
+padding: 2px 8px;
+border-radius: 2px;
+font-family: ‘DM Mono’, monospace;
+font-size: 9px;
+font-weight: 500;
+letter-spacing: 0.5px;
+margin-top: 5px;
+}
+.yes  { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.no   { background: #fee2e2; color: #9f1239; border: 1px solid #fecdd3; }
+.part { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.src-ok   { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; font-size: 8px; padding: 1px 5px; }
+.src-warn { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; font-size: 8px; padding: 1px 5px; }
+
+/* ── FOOTNOTE ── */
+.footer {
+padding: 24px 56px;
+border-top: 2px solid var(–ink);
+display: grid;
+grid-template-columns: 1fr auto;
+gap: 24px;
+align-items: center;
+}
+.footer-left {
+font-size: 11px;
+color: var(–ink-dim);
+line-height: 1.7;
+}
+.footer-left strong { color: var(–ink); }
+.footer-right {
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+color: var(–ink-dim);
+text-align: right;
+line-height: 1.7;
+}
+.version-badge {
+display: inline-block;
+font-family: ‘DM Mono’, monospace;
+font-size: 9px;
+padding: 3px 8px;
+background: var(–ink);
+color: #fff;
+border-radius: 2px;
+letter-spacing: 1px;
+margin-bottom: 6px;
+}
+</style>
+
+</head>
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+  <div>
+    <div class="header-overline">Body & Device Compatibility · RAGT Readiness Checklist Item 8</div>
+    <div class="header-title">3 Devices<br><span>Compared</span></div>
+    <div class="header-sub">
+      ข้อมูลจาก HIWIN Official Brochure (2021) · EksoNR Clinical Forms + FDA · BTL R-GAIT Product Specialist<br>
+      <span style="color:#166534;">v3 — อัปเดต R-GAIT body specs จาก Product Specialist (height 90–210 cm)</span>
+    </div>
+  </div>
+  <div class="device-legend">
+    <div class="legend-item h">
+      <div class="legend-dot"></div>
+      <div class="legend-name">HIWIN MRG-P100</div>
+      <div class="legend-type">End-effector</div>
+    </div>
+    <div class="legend-item r">
+      <div class="legend-dot"></div>
+      <div class="legend-name">R-GAIT (BTL)</div>
+      <div class="legend-type">End-effector</div>
+    </div>
+    <div class="legend-item e">
+      <div class="legend-dot"></div>
+      <div class="legend-name">EksoNR</div>
+      <div class="legend-type">Exoskeleton</div>
+    </div>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr class="cols">
+      <th>หัวข้อ</th>
+      <th class="h">HIWIN MRG-P100</th>
+      <th class="r">R-GAIT</th>
+      <th class="e">EksoNR</th>
+    </tr>
+  </thead>
+  <tbody>
+
+```
+<!-- SECTION 1: DEVICE -->
+<tr class="sec"><td colspan="4">▸ ประเภทและระบบ · Device & Mechanism</td></tr>
+
+<tr class="row">
+  <td>ระบบ</td>
+  <td class="h">End-effector<br><span class="note">3-point support<br>เข่า · ท้อง · สะโพก<br>ไม่ใช่ suspension harness</span></td>
+  <td class="r">End-effector<br><span class="note">BWS harness + footplate<br>3D pelvic motion<br>Dynamic weight offloading</span></td>
+  <td class="e">Exoskeleton (Wearable)<br><span class="note">Hip-Knee actuated<br>Overground walking<br>Assist-as-needed mode</span></td>
+</tr>
+
+<tr class="row">
+  <td>การเดิน</td>
+  <td class="h"><span class="tag part">Stationary</span><span class="note">ลำตัวอยู่กับที่<br>ขาเคลื่อนตาม trajectory</span></td>
+  <td class="r"><span class="tag part">Stationary</span><span class="note">ลำตัวอยู่กับที่<br>Pelvic rotation ได้ 3 แกน</span></td>
+  <td class="e"><span class="tag yes">Overground</span><span class="note">เดินได้จริงในพื้นที่<br>ใช้ walker/crutch ประกอบ</span></td>
+</tr>
+
+<tr class="row">
+  <td>Pediatric</td>
+  <td class="h"><span class="tag part">จำกัด</span><span class="note">ขึ้นกับ thigh/shank fit<br>ไม่ระบุอายุขั้นต่ำ</span></td>
+  <td class="r"><span class="tag yes">รองรับ</span><span class="note">ตั้งแต่ความสูง 80 cm</span></td>
+  <td class="e"><span class="tag no">ไม่รองรับ</span><span class="note">ขั้นต่ำ 152 cm</span></td>
+</tr>
+
+<!-- SECTION 2: BODY SPECS -->
+<tr class="sec"><td colspan="4">▸ ขนาดร่างกายที่รับได้ · Body Size Requirements</td></tr>
+
+<tr class="row">
+  <td>น้ำหนักสูงสุด</td>
+  <td class="h">
+    <span class="num">135</span>
+    <span class="unit">kg</span>
+    <span class="tag src-ok">Official Brochure ✓</span>
+  </td>
+  <td class="r">
+    <span class="num">175</span>
+    <span class="unit">kg</span>
+    <span class="tag src-ok">btlnet.com ✓</span>
+  </td>
+  <td class="e">
+    <span class="num">100</span>
+    <span class="unit">kg (220 lbs)</span>
+    <span class="tag src-ok">FDA / Clinical Form ✓</span>
+  </td>
+</tr>
+
+<tr class="row">
+  <td>ความสูง</td>
+  <td class="h">
+    <span class="num">—</span>
+    <span class="note">ไม่ระบุใน official source<br>ขึ้นกับ thigh/shank fit เท่านั้น</span>
+    <span class="tag src-warn">ไม่มีข้อมูล</span>
+  </td>
+  <td class="r">
+    <span class="num">90–210 cm</span>
+    <span class="note">รองรับ pediatric และผู้ใหญ่ตัวสูง<br>กว้างที่สุดในบรรดา 3 เครื่อง</span>
+    <span class="tag src-ok">Product Specialist ✓</span>
+  </td>
+  <td class="e">
+    <span class="num">152–193 cm</span>
+    <span class="unit">(5'0" – 6'4")</span>
+    <span class="tag src-ok">eksobionics.com ✓</span>
+  </td>
+</tr>
+
+<!-- SECTION 3: LIMB -->
+<tr class="sec"><td colspan="4">▸ การวัดขา · Limb Dimensions</td></tr>
+
+<tr class="row">
+  <td>ขาท่อนบน<br><small style="font-weight:400;color:var(--ink-dim)">(Thigh)</small></td>
+  <td class="h">
+    <span class="num">38–50 cm</span>
+    <span class="tag src-ok">Official Brochure ✓</span>
+  </td>
+  <td class="r">
+    <span class="num">—</span>
+    <span class="note">ปรับได้ต่อเนื่อง<br>ไม่ระบุ range ใน public source</span>
+    <span class="tag src-warn">ไม่มีข้อมูล</span>
+  </td>
+  <td class="e">
+    <span class="num">Ekso Table</span>
+    <span class="note">วัด Buttocks → Top of knee<br>เทียบ lookup table</span>
+    <span class="tag src-ok">Clinical Form ✓</span>
+  </td>
+</tr>
+
+<tr class="row">
+  <td>ขาท่อนล่าง<br><small style="font-weight:400;color:var(--ink-dim)">(Shank)</small></td>
+  <td class="h">
+    <span class="num">40–52 cm</span>
+    <span class="tag src-ok">Official Brochure ✓</span>
+  </td>
+  <td class="r">
+    <span class="num">—</span>
+    <span class="note">ปรับได้ต่อเนื่อง</span>
+    <span class="tag src-warn">ไม่มีข้อมูล</span>
+  </td>
+  <td class="e">
+    <span class="num">48–64 cm</span>
+    <span class="unit">(19" – 25")</span>
+    <span class="tag src-ok">Clinical Form ✓</span>
+  </td>
+</tr>
+
+<tr class="row">
+  <td>ความกว้างสะโพก<br><small style="font-weight:400;color:var(--ink-dim)">(Hip Width)</small></td>
+  <td class="h">
+    <span class="num">—</span>
+    <span class="note">3-point harness ปรับได้<br>ไม่ระบุ range</span>
+  </td>
+  <td class="r">
+    <span class="num">—</span>
+  </td>
+  <td class="e">
+    <span class="num">≤ 46 cm</span>
+    <span class="unit">(≤ 18")</span>
+    <span class="tag src-ok">Clinical Form ✓</span>
+  </td>
+</tr>
+
+<tr class="row">
+  <td>ความต่างขา 2 ข้าง<br><small style="font-weight:400;color:var(--ink-dim)">(Leg Discrepancy)</small></td>
+  <td class="h">
+    <span class="num">&gt; 2 cm</span>
+    <span class="note">= ห้ามใช้เครื่อง</span>
+    <span class="tag src-ok">Quick Start Guide ✓</span>
+  </td>
+  <td class="r">
+    <span class="num">—</span>
+    <span class="note">ไม่ระบุ</span>
+  </td>
+  <td class="e">
+    <span class="num">Upper ≤ 1.3 cm</span>
+    <span class="unit">Lower ≤ 1.9 cm</span>
+    <span class="note">เกินนี้ใช้ไม่ได้<br>(lower: อาจแก้ด้วย shoe lift)</span>
+    <span class="tag src-ok">Clinical Form ✓</span>
+  </td>
+</tr>
+
+<!-- SECTION 4: CONTRAINDICATIONS -->
+<tr class="sec"><td colspan="4">▸ ข้อห้ามสำคัญ · Key Contraindications</td></tr>
+
+<tr class="row">
+  <td>กระดูกหัก / Osteoporosis</td>
+  <td class="h"><span class="tag no">ห้ามใช้</span><span class="note">Non-consolidated fracture<br>Severe osteoporosis</span></td>
+  <td class="r"><span class="tag no">ห้ามใช้</span></td>
+  <td class="e"><span class="tag no">ห้ามใช้</span></td>
+</tr>
+
+<tr class="row">
+  <td>DVT / Thrombosis</td>
+  <td class="h"><span class="tag no">ห้ามใช้</span></td>
+  <td class="r"><span class="tag no">ห้ามใช้</span></td>
+  <td class="e"><span class="tag no">ห้ามใช้</span></td>
+</tr>
+
+<tr class="row">
+  <td>ข้อติด / Arthrodesis<br><small style="font-weight:400;color:var(--ink-dim)">(Hip or Knee)</small></td>
+  <td class="h"><span class="tag no">ห้ามใช้</span></td>
+  <td class="r"><span class="tag no">ห้ามใช้</span></td>
+  <td class="e"><span class="tag no">ห้ามใช้</span></td>
+</tr>
+
+<tr class="row">
+  <td>ผิวหนัง / Skin lesion<br><small style="font-weight:400;color:var(--ink-dim)">(จุด contact)</small></td>
+  <td class="h"><span class="tag no">ห้ามใช้</span><span class="note">Skin lesions<br>Suspected skin infections</span></td>
+  <td class="r"><span class="tag no">ห้ามใช้</span></td>
+  <td class="e"><span class="tag no">ห้ามใช้</span></td>
+</tr>
+
+<tr class="row">
+  <td>ตั้งครรภ์</td>
+  <td class="h"><span class="tag no">ห้ามใช้</span></td>
+  <td class="r"><span class="tag no">ห้ามใช้</span></td>
+  <td class="e"><span class="tag no">ห้ามใช้</span></td>
+</tr>
+
+<tr class="row">
+  <td>สื่อสารไม่ได้ / สับสน</td>
+  <td class="h"><span class="tag no">ห้ามใช้</span><span class="note">Unconscious, Aggressive<br>Impaired cognitive function</span></td>
+  <td class="r"><span class="tag no">ห้ามใช้</span></td>
+  <td class="e"><span class="tag no">ห้ามใช้</span></td>
+</tr>
+
+<tr class="row">
+  <td>Gastrostomy / Hernia</td>
+  <td class="h"><span class="tag no">ห้ามใช้</span><span class="note">ขัดกับ 3-point harness<br>บริเวณช่องท้อง</span></td>
+  <td class="r"><span class="tag part">ระวัง</span><span class="note">ขึ้นกับ harness fit</span></td>
+  <td class="e"><span class="tag part">ระวัง</span></td>
+</tr>
+
+<tr class="row">
+  <td>Involuntary movement<br><small style="font-weight:400;color:var(--ink-dim)">(Chorea, Dystonia)</small></td>
+  <td class="h"><span class="tag no">ห้ามใช้</span><span class="note">Severe involuntary movements</span></td>
+  <td class="r"><span class="tag part">ระวัง</span></td>
+  <td class="e"><span class="tag part">ระวัง</span></td>
+</tr>
+
+<!-- SECTION 5: SAFETY FEATURES -->
+<tr class="sec"><td colspan="4">▸ จุดเด่นด้านความปลอดภัย · Safety & Clinical Features</td></tr>
+
+<tr class="row">
+  <td>Spasticity detection</td>
+  <td class="h"><span class="tag yes">มี (Built-in)</span><span class="note">Tension sensor<br>หยุดอัตโนมัติเมื่อตรวจพบ<br>จุดเด่นเฉพาะของ HIWIN</span></td>
+  <td class="r"><span class="tag part">บางส่วน</span></td>
+  <td class="e"><span class="tag part">Assist-as-needed</span><span class="note">ลดแรงเมื่อผู้ป่วยเริ่มก้าว</span></td>
+</tr>
+
+<tr class="row">
+  <td>Vital sign monitoring</td>
+  <td class="h"><span class="tag yes">มี (Built-in)</span><span class="note">BP · HR · SpO₂<br>หยุดอัตโนมัติเมื่อผิดปกติ</span></td>
+  <td class="r"><span class="tag part">บางรุ่น</span></td>
+  <td class="e"><span class="tag no">ไม่มีในตัวเครื่อง</span><span class="note">PT ประเมินเองก่อน-ระหว่าง session</span></td>
+</tr>
+
+<tr class="row">
+  <td>Setup time</td>
+  <td class="h"><span class="num">≤ 5 นาที</span><span class="note">Electric lift system<br>1 therapist ทำได้คนเดียว</span></td>
+  <td class="r"><span class="num">≤ 5 นาที</span><span class="note">Harness + footplate<br>1 therapist ทำได้คนเดียว</span></td>
+  <td class="e"><span class="num">10–20 นาที</span><span class="note">ใส่ exoskeleton ทีละจุด<br>ต้องการ therapist ที่ชำนาญ</span></td>
+</tr>
+
+<tr class="row">
+  <td>Training data / Report</td>
+  <td class="h"><span class="tag yes">มี</span><span class="note">Steps · Distance · Speed<br>Hip/Knee angle graph<br>พิมพ์ report ได้</span></td>
+  <td class="r"><span class="tag yes">มี</span><span class="note">16 sensors ใน footplate<br>Real-time feedback<br>Export data ได้</span></td>
+  <td class="e"><span class="tag yes">มี</span><span class="note">Session log<br>Gait metrics per step</span></td>
+</tr>
+
+<tr class="row">
+  <td>Trajectory / Gait pattern</td>
+  <td class="h"><span class="note">ปรับได้ 3 แบบ<br>วงรี · แบน · Walk<br>เพิ่ม toe clearance / step length</span></td>
+  <td class="r"><span class="note">Step length ≤ 620 mm<br>Speed ≤ 80 steps/min<br>BWS 0–100%</span></td>
+  <td class="e"><span class="note">Preset + Adaptive<br>ปรับตาม motor intent</span></td>
+</tr>
+```
+
+  </tbody>
+</table>
+
+<!-- FOOTER -->
+
+<div class="footer">
+  <div class="footer-left">
+    <div class="version-badge">v3 · MAY 2026</div><br>
+    <strong>แหล่งข้อมูล:</strong> HIWIN MRG-P100 Official Brochure TH/CN (2021) · HIWIN Quick Start Guide (2023) · BTL R-GAIT Product Specialist · Ekso Bionics Clinical Forms + eksobionics.com (FDA)<br>
+    <span style="color:#92400e;">⚠ R-GAIT limb dimension (thigh/shank) ยังไม่มีข้อมูล — ควรยืนยันจาก BTL representative โดยตรง</span>
+  </div>
+  <div class="footer-right">
+    ประวิตร พระโคศรี · นักกายภาพบำบัด ก.9573<br>
+    ศูนย์เวชศาสตร์ฟื้นฟู สภากาชาดไทย<br>
+    @rehabarchitect.th
+  </div>
+</div>
+
+</body>
+</html>
